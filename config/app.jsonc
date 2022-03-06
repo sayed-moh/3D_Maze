@@ -1,0 +1,540 @@
+{
+    "start-scene": "menu",
+    "window":
+    {
+        "title":"3D Maze",
+        "size":{
+            "width":1280,
+            "height":720
+        },
+        "fullscreen": false
+    },
+    "scene": {
+        "menu" : {
+            "play": "assets/textures/menuplay.png",
+            "exit": "assets/textures/menuexit.png"
+        },
+        "win" : "assets/textures/win.png",
+        "lose": "assets/textures/gameover.png",
+        "assets":{
+            "shaders":{
+                "tinted":{
+                    "vs":"assets/shaders/tinted.vert",
+                    "fs":"assets/shaders/tinted.frag"
+                },
+                "textured":{
+                    "vs":"assets/shaders/textured.vert",
+                    "fs":"assets/shaders/textured.frag"
+                },
+                "lit": {
+                    "vs":"assets/shaders/game.vert",
+                    "fs":"assets/shaders/game.frag"
+                }
+            },
+            "textures":{
+                "moon": "assets/textures/moon.jpg",
+                "grass": "assets/textures/grass_ground_d.jpg",
+                "wood": "assets/textures/wood.jpg",
+                "glass": "assets/textures/glass-panels.png",
+                "monkey": "assets/textures/monkey.png",
+                "finish": "assets/textures/disco.png",
+                "brickAlbedo": "assets/Brick/albedo.jpg",
+                "brickRoughness": "assets/Brick/roughness.jpg",
+                "brickSpecular": "assets/Brick/specular.jpg",
+                "brickEmissive": "assets/Brick/emissive.jpg",
+                "brickAmbient": "assets/Brick/ambient.jpg",
+                "rockAlbedo": "assets/rock/albedo.jpg",
+                "rockRoughness": "assets/rock/roughness.jpg",
+                "rockSpecular": "assets/rock/specular.jpg",
+                "rockEmissive": "assets/rock/emissive.jpg",
+                "rockAmbient": "assets/rock/ambient.jpg",
+                "skullAmbient": "assets/Skull/ambient.jpg",
+                "skullAlbedo": "assets/Skull/Skull.jpg",
+                "skullRoughness": "assets/Skull/roughness.png",
+                "skullSpecular": "assets/Skull/specular.jpg",
+                "skullEmissive": "assets/Skull/emissive.jpg",
+                "deathAmbient": "assets/Death/ambient.jpg",
+                "deathAlbedo": "assets/Death/albedo.png",
+                "deathRoughness": "assets/Death/roughness.png",
+                "deathSpecular": "assets/Death/specular.jpg",
+                "deathEmissive": "assets/Death/emissive.jpg"
+            },
+            "meshes":{
+                "cube": "assets/models/cube.obj",
+                "monkey": "assets/models/monkey.obj",
+                "plane": "assets/models/plane.obj",
+                "sphere": "assets/models/sphere.obj",
+                "maze": "assets/models/Maze.obj",
+                "skull": "assets/models/skull.obj",
+                "death": "assets/models/death.obj",
+                "health": "assets/models/health.obj"
+            },
+            "samplers":{
+                "default":{},
+                "pixelated":{
+                    "MAG_FILTER": "GL_NEAREST"
+                },
+                "linear" : {
+                    "MAG_FILTER": "GL_LINEAR",
+                    "MIN_FILTER": "GL_LINEAR_MIPMAP_LINEAR",
+                    "WRAP_S": "GL_REPEAT",
+                    "WRAP_T": "GL_REPEAT"
+                }
+            },
+            "materials":{
+                "metal":{
+                    "type": "tinted",
+                    "shader": "tinted",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": true
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [0.45, 0.4, 0.5, 1]
+                },
+                "health":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": true
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "skullAlbedo",
+                    "sampler": "linear"
+                },
+                "finish":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": true
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "finish",
+                    "sampler": "linear"
+                },
+                "death":{
+                    "type": "lit",
+                    "shader": "lit",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": true
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "albedo_map": "deathAlbedo",
+                    "specular_map":"deathSpecular",
+                    "ambient_occlusion_map":"deathEmissive",
+                    "roughness_map":"deathRoughness",
+                    "emissive_map":"deathEmissive",
+                    "sampler": "linear"
+                },
+                "rock":{
+                    "type": "lit",
+                    "shader": "lit",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": true
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "albedo_map": "rockAlbedo",
+                    "specular_map":"rockSpecular",
+                    "ambient_occlusion_map":"rockEmissive",
+                    "roughness_map":"rockRoughness",
+                    "emissive_map":"rockEmissive",
+                    "sampler": "linear"
+                },
+                "skull":{
+                    "type": "lit",
+                    "shader": "lit",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": true
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "albedo_map": "skullAlbedo",
+                    "specular_map":"skullSpecular",
+                    "ambient_occlusion_map":"skullAmbient",
+                    "roughness_map":"skullRoughness",
+                    "emissive_map":"skullEmissive",
+                    "sampler": "linear"
+                },
+                "brick":{
+                    "type": "lit",
+                    "shader": "lit",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": true
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "albedo_map": "brickAlbedo",
+                    "specular_map":"brickSpecular",
+                    "ambient_occlusion_map":"brickEmissive",
+                    "roughness_map":"brickRoughness",
+                    "emissive_map":"brickEmissive",
+                    "sampler": "linear"
+                }
+            }
+        },
+        "world":[
+            {
+                "position": [5, 8, 34],
+                "components": [
+                    {
+                        "type": "Camera"
+                    },
+                    {
+                        "type": "Free Camera Controller"
+                    }
+                ],
+                "children": [
+                    {
+                        "position": [0.1, -0.1, -0.1],
+                        "rotation": [45,45, 0],
+                        "scale": [0.01, 0.01, 0.1],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "cube",
+                                "material": "metal"
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "health3",
+                        "position": [-0.085, 0.07, -0.1],
+                        "scale": [0.0007, 0.0007, 0.0001],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "skull",
+                                "material": "health"
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "health2",
+                        "position": [-0.065, 0.07, -0.1],
+                        "scale": [0.0007, 0.0007, 0.0001],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "skull",
+                                "material": "health"
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "health1",
+                        "position": [-0.045, 0.07, -0.1],
+                        "scale": [0.0007, 0.0007, 0.0001],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "skull",
+                                "material": "health"
+                            }
+                        ]
+                    }
+                ]
+            },
+            ////////////////LIGHT////////////////////
+            {
+                "position": [0, 30, 0],
+                "components": [
+                    {
+                        "type": "Light",
+                        "lightType": "point",
+                        "color": [0.1,0.075,0.075],
+                        "attenuation": [1,0.0025,0.0015]
+                    }
+                ]
+            },
+            {
+                "rotation": [90, 0, 0],
+                "components": [
+                    {
+                        "type": "Light",
+                        "lightType": "directional",
+                        "color": [0.05,0,0]
+                    }
+                ]
+            },
+            {
+                "rotation": [-90, 0, 0],
+                "position": [5, 15, 34],
+                "components": [
+                    {
+                        "type": "Light",
+                        "lightType": "spot",
+                        "color": [0.05,0,0.1],
+                        "coneAngles": [30,100],
+                        "attenuation": [1,0.0025,0.0015]
+                    }
+                ]
+            },
+            /////////////////////////////////////////////////
+            ///////////////////WALLS/////////////////////////
+            {
+                "position": [0, 33, 40],
+                "rotation": [0, 180, 0],
+                "scale": [40, 20, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "brick"
+                    }
+                ]
+            },
+            {
+                "position": [40, 33, 0],
+                "rotation": [0, 270, 0],
+                "scale": [40, 20, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "brick"
+                    }
+                ]
+            },
+            {
+                "position": [-40, 33, 0],
+                "rotation": [0, 90, 0],
+                "scale": [40, 20, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "brick"
+                    }
+                ]
+            },
+            {
+                "position": [0, 33, -40],
+                "rotation": [0, 0, 0],
+                "scale": [40, 20, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "brick"
+                    }
+                ]
+            },
+            {
+                "position": [0, 53, 0],
+                "rotation": [90, 0, 0],
+                "scale": [40, 40, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "brick"
+                    }
+                ]
+            },
+            /////////////////////////////////////////////////
+            /////////////////////MAZE////////////////////////
+            {
+                "position": [0, 0, 0],
+                "rotation": [0, 0, 0],
+                "scale": [12.5, 12.5, 12.5],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "maze",
+                        "material": "rock"
+                    }
+                ]
+            },
+            ////////////////////////////////////////////////
+            ///////////////////DISCO BALL///////////////////
+            {
+                "position": [-45, 7, 6],
+                "rotation": [0, 0, 0],
+                "scale": [5, 5, 5],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "sphere",
+                        "material": "finish"
+                    },
+                    {
+                        "type": "Movement",
+                        "angularVelocity": [0, 90, 0]
+                    }
+                ]
+            },
+            ////////////////////////////////////////////////
+            //////////////////DEATH/////////////////////////
+            {
+                
+                "name": "death1",
+                "position": [31, 0, -5],
+                "rotation": [0, 0, 0],
+                "scale": [1, 1, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "death",
+                        "material": "death"
+                    }
+                ]
+            },
+            {
+                "name": "death2",
+                "position": [-26, 0, -7],
+                "rotation": [0, -135, 0],
+                "scale": [1, 1, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "death",
+                        "material": "death"
+                    }
+                ]
+            },
+            {
+                "name": "death3",
+                "position": [5, 0, 20],
+                "rotation": [0, 0, 0],
+                "scale": [1, 1, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "death",
+                        "material": "death"
+                    }
+                ]
+            },
+            ////////////////////////////////////////////////
+            ///////////////////SKULLS///////////////////////
+            {
+                "position": [25, 15, 28],
+                "rotation": [0, 0, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "angularVelocity": [0, 90, 0]
+                    }
+                ]
+            },
+            {
+                "position": [-13, 15, 24],
+                "rotation": [0, 0, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "angularVelocity": [0, 90, 0]
+                    }
+                ]
+            },
+            {
+                "position": [0, 15, -13],
+                "rotation": [0, 0, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "angularVelocity": [0, 90, 0]
+                    }
+                ]
+            },
+            {
+                "position": [-25, 15, -25],
+                "rotation": [0, 0, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "angularVelocity": [0, 90, 0]
+                    }
+                ]
+            },
+            {
+                "position": [25, 15, -25],
+                "rotation": [0, 0, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "angularVelocity": [0, 90, 0]
+                    }
+                ]
+            },
+            {
+                "position": [-25, 15, 13],
+                "rotation": [0, 0, 0],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "skull",
+                        "material": "skull"
+                    },
+                    {
+                        "type": "Movement",
+                        "angularVelocity": [0, 90, 0]
+                    }
+                ]
+            }
+            ////////////////////////////////////////////////
+        ]
+    }
+}
